@@ -21,3 +21,4 @@ pushd po2lmo
 make && sudo make install
 popd
 ./scripts/feeds install libpcap
+./scripts/feeds install -a -p node
