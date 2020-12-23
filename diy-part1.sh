@@ -23,3 +23,4 @@ git clone https://github.com/brvphoenix/wrtbwmon.git package/wrtbwmon
 git clone https://github.com/brvphoenix/luci-app-wrtbwmon.git package/luci-app-wrtbwmon 
 git clone https://github.com/kenzok8/openwrt-packages.git package/openwrt-packages
 git clone https://github.com/openwrt-dev/po2lmo.git
+git clone https://github.com/project-openwrt/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
