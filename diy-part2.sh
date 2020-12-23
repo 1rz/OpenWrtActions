@@ -15,6 +15,8 @@
 echo "192.168.1.1 wty.lan" >> package/base-files/files/etc/hosts
 rm ./package/feeds/packages/node
 rm ./package/feeds/packages/node-*
+sudo rm -rf ./package/lean/luci-app-wrtbwmon
+
 pushd po2lmo
 make && sudo make install
 popd
