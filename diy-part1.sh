@@ -24,3 +24,4 @@ git clone https://github.com/brvphoenix/luci-app-wrtbwmon.git package/luci-app-w
 git clone https://github.com/kenzok8/openwrt-packages.git package/openwrt-packages
 git clone https://github.com/openwrt-dev/po2lmo.git
 git clone https://github.com/project-openwrt/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
+git clone https://github.com/Zxilly/UA2F package/UA2F
