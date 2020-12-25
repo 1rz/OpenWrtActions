@@ -20,7 +20,8 @@ sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
 git clone https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk.git package/mentohust
 git clone https://github.com/BoringCat/luci-app-mentohust.git package/luci-app-mentohust
 git clone https://github.com/brvphoenix/wrtbwmon.git package/wrtbwmon
-git clone https://github.com/brvphoenix/luci-app-wrtbwmon.git package/luci-app-wrtbwmon 
+#git clone https://github.com/brvphoenix/luci-app-wrtbwmon.git package/luci-app-wrtbwmon 
+git clone -b release-1.6.3 https://github.com/brvphoenix/luci-app-wrtbwmon.git package/luci-app-wrtbwmon
 git clone https://github.com/kenzok8/openwrt-packages.git package/openwrt-packages
 git clone https://github.com/openwrt-dev/po2lmo.git
 git clone https://github.com/project-openwrt/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
