@@ -17,6 +17,7 @@ rm ./package/feeds/packages/node
 rm ./package/feeds/packages/node-*
 #sudo rm -rf ./package/lean/luci-app-wrtbwmon
 sudo rm -rf ./package/libs/libnetfilter-queue/*
+sudo rm -rf ./package/lean/luci-theme-argon/
 wget -P ./package/libs/libnetfilter-queue/ https://raw.githubusercontent.com/openwrt/packages/master/libs/libnetfilter-queue/Makefile
 pushd po2lmo
 make && sudo make install
