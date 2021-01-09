@@ -181,16 +181,15 @@ jobs:
 
     - name: WeChat notification
       continue-on-error: true
-      if: env.SCKEY
+      if: steps.organize.outputs.status == 'success' && env.SCKEY == 'true' && !cancelled()
       run: |
-        [ steps.compile.outputs.status == 'success' ] && curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=🎉 OpenWrt 编译成功 🚀|| curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=❌ OpenWrt编译失败
+        curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=🎉 OpenWrt 编译成功 🚀%0A%0A🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }})%0A%0A🔗 [GitHub Release](https://github.com/1rz/OpenWrtActions/releases/download/${{ env.FIRMWARE }}/openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade.bin)" 
 
     - name: Telegram notification
-      if: env.TELEGRAM_TOKEN && ! contains(github.event.action, 'notg')
+      if: steps.organize.outputs.status == 'success' && env.TELEGRAM_TOKEN == 'true' && !cancelled()
       continue-on-error: true
       run: |
-        # [ steps.compile.outputs.status == 'success' ] && curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🎉 OpenWrt 编译成功 🚀" "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" || curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=❌ OpenWrt编译失败" "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
-
+        curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🎉 OpenWrt 编译成功 🚀 %0A 🔗 Cowtransfer: ${{ steps.cowtransfer.outputs.url }} %0A 🔗 GitHub Release: https://github.com/1rz/OpenWrtActions/releases/download/${{ env.FIRMWARE }}/openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade.bin" "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
 
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
