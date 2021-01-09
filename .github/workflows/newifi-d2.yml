@@ -183,7 +183,7 @@ jobs:
       continue-on-error: true
       if: steps.organize.outputs.status == 'success' && env.SCKEY == 'true' && !cancelled()
       run: |
-        curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=🎉 OpenWrt 编译成功 🚀%0A%0A🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }})%0A%0A🔗 [GitHub Release](https://github.com/1rz/OpenWrtActions/releases/download/${{ env.FIRMWARE }}/openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade.bin)" 
+        curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=🎉 OpenWrt 编译成功 🚀&desp=A🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }})%0A%0A🔗 [GitHub Release](https://github.com/1rz/OpenWrtActions/releases/download/${{ env.FIRMWARE }}/openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade.bin)" 
 
     - name: Telegram notification
       if: steps.organize.outputs.status == 'success' && env.TELEGRAM_TOKEN == 'true' && !cancelled()
