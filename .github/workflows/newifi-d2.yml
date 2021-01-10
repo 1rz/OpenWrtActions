@@ -1,5 +1,6 @@
 #
 # Copyright (c) 2019-2021 P3TERX <https://p3terx.com>
+# Copyright (c) 2020-2021 Wittoy <https://wittoy.com>
 #
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
@@ -8,7 +9,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: Newifi D2 Lede Build
+name: Newifi D2 Build
 
 on:
   repository_dispatch:
@@ -81,7 +82,7 @@ jobs:
 
     - name: Load custom configuration
       run: |
-        [ -e files ] && mv files/* openwrt/
+        [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
@@ -183,7 +184,7 @@ jobs:
       continue-on-error: true
       if: env.SCKEY
       run: |
-        [ steps.compile.outputs.status == 'success' ] && curl -k https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt编译成功" -d "&desp=🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }})%0A%0A🔗 [GitHub Release](https://github.com/1rz/OpenWrtActions/releases/download/$(date +"%Y.%m.%d-%H%M")/openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade.bin)" || curl -k https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt编译失败"
+        [ steps.compile.outputs.status == 'success' ] && curl -k https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt编译成功" -d "&desp=🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }}) %0A%0A 🔗 [GitHub Release](https://github.com/1rz/OpenWrtActions/releases/download/$(date +"%Y.%m.%d-%H%M")/openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade.bin)" || curl -k https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt编译失败"
 
     - name: Telegram notification
       if: env.TELEGRAM_TOKEN
