@@ -52,7 +52,7 @@ jobs:
       run: |
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq update
-        sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-1804)
+        sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-2004)
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
@@ -81,7 +81,7 @@ jobs:
 
     - name: Load custom configuration
       run: |
-        [ -e files ] && mv files openwrt/files
+        [ -e files ] && mv files/* openwrt/
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
@@ -181,15 +181,15 @@ jobs:
 
     - name: WeChat notification
       continue-on-error: true
-      if: steps.organize.outputs.status == 'success' && env.SCKEY == 'true' && !cancelled()
+      if: env.SCKEY
       run: |
-        curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=🎉 OpenWrt 编译成功 🚀&desp=A🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }})%0A%0A🔗 [GitHub Release](https://github.com/1rz/OpenWrtActions/releases/download/${{ env.FIRMWARE }}/openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade.bin)" 
+        [ steps.compile.outputs.status == 'success' ] && curl -k https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt编译成功" -d "&desp=🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }})%0A%0A🔗 [GitHub Release](https://github.com/1rz/OpenWrtActions/releases/download/$(date +"%Y.%m.%d-%H%M")/openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade.bin)" || curl -k https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt编译失败"
 
     - name: Telegram notification
-      if: steps.organize.outputs.status == 'success' && env.TELEGRAM_TOKEN == 'true' && !cancelled()
+      if: env.TELEGRAM_TOKEN
       continue-on-error: true
       run: |
-        curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🎉 OpenWrt 编译成功 🚀 %0A 🔗 Cowtransfer: ${{ steps.cowtransfer.outputs.url }} %0A 🔗 GitHub Release: https://github.com/1rz/OpenWrtActions/releases/download/${{ env.FIRMWARE }}/openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade.bin" "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
+        [ steps.compile.outputs.status == 'success' ] && curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🎉 OpenWrt 编译成功 🚀 %0A 🔗 Cowtransfer: ${{ steps.cowtransfer.outputs.url }} %0A 🔗 GitHub Release: https://github.com/1rz/OpenWrtActions/releases/download/$(date +"%Y.%m.%d-%H%M")/openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade.bin" "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" || curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=❌ OpenWrt 编译失败 ❓ %0A Check Actions: https://github.com/1rz/OpenWrtActions/actions" "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
 
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
@@ -201,7 +201,7 @@ jobs:
       uses: dev-drprasad/delete-older-releases@v0.1.0
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
-        keep_latest: 3
+        keep_latest: 5
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
