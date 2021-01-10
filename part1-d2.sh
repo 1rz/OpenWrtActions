@@ -31,13 +31,12 @@ git clone https://github.com/openwrt-dev/po2lmo.git
 git clone https://github.com/Zxilly/UA2F package/UA2F
 
 # Add kernel config
-cat >> /workdir/openwrt/target/linux/ramips/mt7621/config-5.4 <<EOF
+cat >> target/linux/ramips/mt7621/config-5.4 <<EOF
 CONFIG_NETFILTER=y
 CONFIG_NETFILTER_NETLINK=y
 CONFIG_NETFILTER_NETLINK_GLUE_CT=y
 CONFIG_NETFILTER_NETLINK_LOG=y
 CONFIG_NF_CONNTRACK=y
-CONFIG_NF_CONNTRACK_PROCFS is not set
 CONFIG_NF_CT_NETLINK=y
 CONFIG_NF_DEFRAG_IPV4=y
 EOF

@@ -184,13 +184,13 @@ jobs:
       continue-on-error: true
       if: env.SCKEY
       run: |
-        [ steps.tag.outputs.status == 'success' ] && curl -k "https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt编译成功" -d "&desp=🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }}) %0A%0A 🔗 [GitHub Release](https://github.com/1rz/OpenWrtActions/releases/download/$(date +'%Y.%m.%d-%H%M')/openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade.bin)" || curl -k "https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt编译失败"
+        [ steps.organize.outputs.status == 'success' ] && curl -k "https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt编译成功" -d "&desp=🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }}) %0A%0A 🔗 [GitHub Release](https://github.com/1rz/OpenWrtActions/releases/download/$(date +'%Y.%m.%d-%H%M')/openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade.bin)" || curl -k "https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt编译失败"
 
     - name: Telegram notification
       if: env.TELEGRAM_TOKEN
       continue-on-error: true
       run: |
-        [ steps.tag.outputs.status == 'success' ] && curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🎉 OpenWrt 编译成功 🚀 %0A 🔗 Cowtransfer: ${{ steps.cowtransfer.outputs.url }} %0A 🔗 GitHub Release: https://github.com/1rz/OpenWrtActions/releases/download/$(date +"%Y.%m.%d-%H%M")/openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade.bin" "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" || curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=❌ OpenWrt 编译失败 ❓ %0A Check Actions: https://github.com/1rz/OpenWrtActions/actions" "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
+        [ steps.organize.outputs.status == 'success' ] && curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🎉 OpenWrt 编译成功 🚀 %0A 🔗 Cowtransfer: ${{ steps.cowtransfer.outputs.url }} %0A 🔗 GitHub Release: https://github.com/1rz/OpenWrtActions/releases/download/$(date +"%Y.%m.%d-%H%M")/openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade.bin" "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" || curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=❌ OpenWrt 编译失败 ❓ %0A Check Actions: https://github.com/1rz/OpenWrtActions/actions" "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
 
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
