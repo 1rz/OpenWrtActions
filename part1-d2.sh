@@ -31,7 +31,7 @@ git clone https://github.com/openwrt-dev/po2lmo.git
 git clone https://github.com/Zxilly/UA2F package/UA2F
 
 # Add kernel config
-cat >> openwrt/target/linux/ramips/mt7621/config-5.4 <<EOF
+cat >> /workdir/openwrt/target/linux/ramips/mt7621/config-5.4 <<EOF
 CONFIG_NETFILTER=y
 CONFIG_NETFILTER_NETLINK=y
 CONFIG_NETFILTER_NETLINK_GLUE_CT=y
