@@ -28,15 +28,15 @@ git clone https://github.com/project-openwrt/luci-app-unblockneteasemusic.git pa
 git clone https://github.com/BoringCat/luci-app-mentohust.git package/luci-app-mentohust
 git clone https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk.git package/mentohust
 git clone https://github.com/openwrt-dev/po2lmo.git
-git clone https://github.com/Zxilly/UA2F package/UA2F
+# git clone https://github.com/Zxilly/UA2F package/UA2F
 
 # Add kernel config
-cat >> target/linux/ramips/mt7621/config-5.4 <<EOF
-CONFIG_NETFILTER=y
-CONFIG_NETFILTER_NETLINK=y
-CONFIG_NETFILTER_NETLINK_GLUE_CT=y
-CONFIG_NETFILTER_NETLINK_LOG=y
-CONFIG_NF_CONNTRACK=y
-CONFIG_NF_CT_NETLINK=y
-CONFIG_NF_DEFRAG_IPV4=y
-EOF
+# cat >> target/linux/ramips/mt7621/config-5.4 <<EOF
+# CONFIG_NETFILTER=y
+# CONFIG_NETFILTER_NETLINK=y
+# CONFIG_NETFILTER_NETLINK_GLUE_CT=y
+# CONFIG_NETFILTER_NETLINK_LOG=y
+# CONFIG_NF_CONNTRACK=y
+# CONFIG_NF_CT_NETLINK=y
+# CONFIG_NF_DEFRAG_IPV4=y
+# EOF
