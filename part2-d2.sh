@@ -13,8 +13,8 @@
 # Modify default IP
 #sed -i 's/192.168.1.1/192.168.50.5/g' package/base-files/files/bin/config_generate
 echo "192.168.1.1 wty.lan" >> package/base-files/files/etc/hosts
-rm ./package/feeds/packages/node
-rm ./package/feeds/packages/node-*
+#rm ./package/feeds/packages/node
+#rm ./package/feeds/packages/node-*
 #sudo rm -rf ./package/lean/luci-app-wrtbwmon
 # sudo rm -rf ./package/libs/libnetfilter-queue/*
 sudo rm -rf ./package/lean/luci-theme-argon/
@@ -23,4 +23,4 @@ pushd po2lmo
 make && sudo make install
 popd
 ./scripts/feeds install libpcap
-./scripts/feeds install -a -p node
+#./scripts/feeds install -a -p node
